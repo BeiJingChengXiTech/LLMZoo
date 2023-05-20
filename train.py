@@ -40,13 +40,13 @@ class TrainingArguments(transformers.TrainingArguments):
 def train():
     parser = transformers.HfArgumentParser((ModelArguments, DataArguments, TrainingArguments))
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
-
+    print("log 1")
     model, tokenizer = build_model(model_args, training_args)
-
+    print("log 2")
     data_module = make_supervised_data_module(tokenizer=tokenizer, data_args=data_args)
-
+    print("log 3")
     trainer = Trainer(model=model, tokenizer=tokenizer, args=training_args, **data_module)
-
+    print("log 4")
     if model_args.lora:
         old_state_dict = model.state_dict
         model.state_dict = (
@@ -54,17 +54,21 @@ def train():
         ).__get__(model, type(model))
         if torch.__version__ >= "2":
             model = torch.compile(model)
-
+    print("log 5")
     if list(pathlib.Path(training_args.output_dir).glob("checkpoint-*")):
         trainer.train(resume_from_checkpoint=True)
     else:
         trainer.train()
 
+    print("log 6")
+
     trainer.save_state()
+    print("log 7")
     if model_args.lora:
         model.save_pretrained(os.path.join(training_args.output_dir, "lora"))
         tokenizer.save_pretrained(os.path.join(training_args.output_dir, "lora"))
     safe_save_model_for_hf_trainer(trainer=trainer, output_dir=training_args.output_dir)
+    print("log 8")
 
 
 if __name__ == "__main__":
