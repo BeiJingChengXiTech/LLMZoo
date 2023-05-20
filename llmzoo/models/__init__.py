@@ -10,8 +10,8 @@ from llmzoo.models.utils import smart_tokenizer_and_embedding_resize
 
 
 def build_model(model_args, training_args):
-    # Step 1: Initialize LLM
-    logging.info(f"+ [Model] Initializing LM: {model_args.model_name_or_path}")
+    
+    print("# Step 1: Initialize LLM [Model] Initializing LM: ", model_args.model_name_or_path)
     model = transformers.AutoModelForCausalLM.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
@@ -20,8 +20,8 @@ def build_model(model_args, training_args):
         device_map={"": int(os.environ.get("LOCAL_RANK") or 0)} if model_args.lora else None
     )
 
-    # Step 2: Initialize tokenizer
-    logging.info(f"+ [Model] Initializing Tokenizer: {model_args.model_name_or_path}")
+    
+    print("# Step 2: Initialize tokenizer [Model] Initializing Tokenizer: ", model_args.model_name_or_path)
     tokenizer = transformers.AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
         cache_dir=training_args.cache_dir,
@@ -31,6 +31,7 @@ def build_model(model_args, training_args):
     )
 
     # Step 3: Add special tokens
+    print("Step 3: Add special tokens")
     if tokenizer.pad_token is None:
         smart_tokenizer_and_embedding_resize(
             special_tokens_dict=dict(pad_token=DEFAULT_PAD_TOKEN),
@@ -43,7 +44,7 @@ def build_model(model_args, training_args):
         "unk_token": DEFAULT_UNK_TOKEN,
     })
 
-    # Step 4: Initialize LoRA
+    print("Step 4: Initialize LoRA") 
     if model_args.lora:
         if "llama" in model_args.model_name_or_path.lower():
             target_modules = ["q_proj", "k_proj", "v_proj", "o_proj"]
@@ -59,5 +60,5 @@ def build_model(model_args, training_args):
         model = prepare_model_for_int8_training(model)
         model = get_peft_model(model, peft_config)
         model.print_trainable_parameters()
-
+    print("Step 5: Return model and tokenizer")
     return model, tokenizer
