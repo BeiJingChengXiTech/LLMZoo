@@ -1,6 +1,6 @@
-model_name_or_path=/data/traincl/phoenix/bloomz-7b1-mt/
+model_name_or_path=/data/traincl/bloomz-7b1-mt/
 model_max_length=1024
-data_path=/data/traincl/phoenix/phoenix-sft-data-v1/data.json
+data_path=/data/traincl/phoenix-sft-data-v1/data.json
 output_dir=checkpointsout
 
 torchrun \
