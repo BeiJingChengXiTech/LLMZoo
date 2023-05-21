@@ -9,6 +9,7 @@ torchrun \
   train.py \
   --model_name_or_path ${model_name_or_path} \
   --lora True \
+  --cache_dir ./cache_dir/ \
   --model_max_length ${model_max_length} \
   --data_path ${data_path} \
   --output_dir ${output_dir} \
