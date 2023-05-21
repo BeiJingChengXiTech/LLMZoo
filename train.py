@@ -38,7 +38,9 @@ class TrainingArguments(transformers.TrainingArguments):
 
 
 def train():
+    print("log 0")
     parser = transformers.HfArgumentParser((ModelArguments, DataArguments, TrainingArguments))
+    print("log m")
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
     print("log 1")
     model, tokenizer = build_model(model_args, training_args)
