@@ -4,7 +4,7 @@ data_path=data/data.json
 output_dir=checkpoints/chimera_7b/
 
 torchrun \
-  --nnodes=1 \
+  --nnodes=2 \
   --nproc_per_node=8 \
   --master_port=12375 \
   train_fast.py \
