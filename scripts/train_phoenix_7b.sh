@@ -5,7 +5,7 @@ output_dir=checkpointsout
 
 torchrun \
   --nnodes=1 \
-  --nproc_per_node=2 \
+  --nproc_per_node=4 \
   train.py \
   --model_name_or_path ${model_name_or_path} \
   --model_max_length ${model_max_length} \
