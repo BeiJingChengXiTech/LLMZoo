@@ -1,11 +1,11 @@
-model_name_or_path=bigscience/bloomz-7b1-mt
-model_max_length=2048
-data_path=data/data.json
-output_dir=checkpoints/phoenix_7b/
+model_name_or_path=/data/traincl/phoenix/bloomz-7b1-mt/
+model_max_length=1024
+data_path=/data/traincl/phoenix/phoenix-sft-data-v1/data.json
+output_dir=checkpointsout
 
 torchrun \
   --nnodes=1 \
-  --nproc_per_node=8 \
+  --nproc_per_node=1 \
   --master_port=12375 \
   train.py \
   --model_name_or_path ${model_name_or_path} \
@@ -13,9 +13,9 @@ torchrun \
   --data_path ${data_path} \
   --output_dir ${output_dir} \
   --bf16 True \
-  --num_train_epochs 3 \
-  --per_device_train_batch_size 4 \
-  --per_device_eval_batch_size 4 \
+  --num_train_epochs 1 \
+  --per_device_train_batch_size 1 \
+  --per_device_eval_batch_size 1 \
   --gradient_accumulation_steps 8 \
   --save_strategy "steps" \
   --save_steps 500 \
