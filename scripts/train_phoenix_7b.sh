@@ -4,7 +4,7 @@ data_path=/data/traincl/phoenix-sft-data-v1/data.json
 output_dir=checkpointsout
 
 torchrun \
-  --nnodes=1 \
+  --nnodes=2 \
   --nproc_per_node=1 \
   --master_port=12375 \
   train.py \
