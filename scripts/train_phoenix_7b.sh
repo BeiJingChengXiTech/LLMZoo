@@ -4,8 +4,8 @@ data_path=/data/traincl/phoenix-sft-data-v1/data.json
 output_dir=checkpointsout
 
 torchrun \
-  --nnodes=2 \
-  --nproc_per_node=1 \
+  --nnodes=1 \
+  --nproc_per_node=2 \
   train.py \
   --model_name_or_path ${model_name_or_path} \
   --model_max_length ${model_max_length} \
