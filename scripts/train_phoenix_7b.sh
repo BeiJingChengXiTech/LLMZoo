@@ -1,11 +1,11 @@
-model_name_or_path=/data/traincl/bloomz-7b1-mt/
+model_name_or_path=/hy-tmp/data/bloomz-7b1-mt/
 model_max_length=1024
-data_path=/data/traincl/phoenix-sft-data-v1/data.json
+data_path=/hy-tmp/data/phoenix-sft-data-v1/data.json
 output_dir=checkpointsout
 
 torchrun \
   --nnodes=1 \
-  --nproc_per_node=4 \
+  --nproc_per_node=6 \
   train.py \
   --model_name_or_path ${model_name_or_path} \
   --lora True \
