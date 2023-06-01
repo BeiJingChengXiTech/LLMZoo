@@ -77,13 +77,14 @@ class Conversation:
 
 
 def get_default_conv_template(model_name=None):
-    if model_name is None:
-        return default_conversation
-    model_name = model_name.lower()
-    if "phoenix" in model_name or "chimera" in model_name:
-        return default_conversation
-    else:
-        raise NotImplementedError
+    return default_conversation
+    # if model_name is None:
+    #     return default_conversation
+    # model_name = model_name.lower()
+    # if "phoenix" in model_name or "chimera" in model_name:
+    #     return default_conversation
+    # else:
+    #     raise NotImplementedError
 
 
 conv = Conversation(
